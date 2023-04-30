@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block content %}
+ <div>
+            <h1>Hello, {{ request.user|title }}</h1>
+        </div>
+    {%  if request.user.is_authenticated %}
+        <a href="{% url 'logout' %}">Logout</a>
+    {%  else %}
+        <a href="{% url 'login' %}">Login</a>
+    {% endif %}
+   </div>
+    <form method="post">
+        {% csrf_token %}
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" required>
+        <br>
+        <label for="day">Cycle Length :</label>
+        <input type="text" id="day" name="day" required>
+        <br>
+        <button type="submit">Create</button>
+    </form>
+    <div class="main">
+        <h2>Next Cycle Date</h2>
+        <p>{{ cycle.next_cycle }}</p>
+
+        <div class="inner_div">
+
+            <div class="item">
+                <p>Next Ovulation dates </p>
+                {% for ovulation_date in cycle.ovulation_date %}
+                    <ul>
+                        <li>{{ ovulation_date }}</li>
+                    </ul>
+                {% endfor %}
+            </div>
+            <div class="item">
+                <p>Next 12 months </p>
+                {% for date in cycle.date %}
+                    <ul>
+                        <li>{{ date }}</li>
+                    </ul>
+                {% endfor %}
+            </div>
+
+             <div class="item">
+                <p> Flow Date </p>
+                {% for date in cycle.flow_date %}
+                    <ul>
+                        <li>{{ date }}</li>
+                    </ul>
+                {% endfor %}
+            </div>
+
+            <div class="item">
+                <p>Fertile Periods </p>
+                <ul>
+                    {% for fertile_day in cycle.fertile_period %}
+
+                        <p class="special">{{ fertile_day }}</p>
+
+                    {% if forloop.counter2|divisibleby:6 == 0 %}
+                    <br>
+                            </ul>
+                        {% endif %}
+                    {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}

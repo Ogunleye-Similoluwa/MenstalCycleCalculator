@@ -1,0 +1,66 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create</title>
+</head>
+<body>
+<form method="post">
+        {% csrf_token %}
+
+        <label for="period_date">Period date
+            <input type="date" id="period_date" name="period_date"/><br>
+        </label>
+
+        <label for="cycle_length">Cycle Length
+            <input type="number" id="cycle_length" name="cycle_length"/><br>
+        </label>
+
+            <button type="submit">Submit</button>
+        </form>
+        {% if unsafe_days %}
+            <hr>
+        <p>Your fertile date is {{ unsafe_days }}</p>
+        {% endif %}
+
+       {% if ovulation
+           <hr>
+       <p>Your ovulation date is {{ ovulation_date }}</p>
+
+        {% endif %}
+
+        {% if period_date %}
+            <hr>
+        <p>YOUR NEXT PERIOD DATE IS {{ next_period_date }}</p>
+        {% endif %}
+
+    {% if period_date %}
+            <p>Your next 12 periods are: </p>
+        {% endif %}
+
+    {% for date in next_twelve %}
+        <hr />
+            {% for item in date %}
+
+        {% if forloop.counter == 1 %}
+            <p>YOUR NEXT PERIOD DATE IS {{ item }}</p>
+                {% endif %}
+
+                {% if forloop.counter == 2 %}
+            <p>YOUR NEXT OVULATION DATE IS {{ item }}</p>
+                {% endif %}
+
+                {% if forloop.counter == 3 %}
+                <p>Your fertile days are </p>
+                    <ul>
+                    {% for fertile_day in item %}
+                    <li>{{ fertile_day }}</li>
+                    {% endfor %}
+                    </ul>
+                    <p>Your safe days are all except the days listed here</p>
+                {% endif %}
+        {% endfor %}
+
+
+</body>
+</html>

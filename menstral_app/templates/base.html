@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List</title>
+</head>
+<style>
+    .container{
+        margin: auto;
+        background-color:#fff;
+
+    }
+    .main{
+        background-color: blue;
+    }
+    .inner_div{
+        display: flex;
+        flex-direction: row;
+        color: white;
+    }
+    .special{
+        display: flex;
+        flex-direction: row;
+    }
+
+
+
+</style>
+<body>
+<div class="container">
+        {% block content %}
+
+
+        {% endblock content %}
+
+    </div>
+
+</body>
+</html>
